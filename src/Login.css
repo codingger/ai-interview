@@ -1,0 +1,35 @@
+.Login_Section {
+    display: grid;
+    grid-template-columns: auto 1fr; 
+    column-gap: 10px; 
+    row-gap: 30px;    
+    align-items: center; 
+    width: 400px;
+   padding: 40px;
+    width: 400px;
+    border-radius: 20px;
+    text-align: center;
+    transform:translate(20px,0px);
+
+    /* --- THE CORE GLASS EFFECTS --- */
+    background: rgba(255, 255, 255, 0.15);            
+    backdrop-filter: blur(12px);                       
+    -webkit-backdrop-filter: blur(12px);               
+    border: 1px solid rgba(255, 255, 255, 0.25);       
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);   
+
+}
+.content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    gap: 10px;
+}
+.buttons{
+    grid-column: span 2;
+    display: flex;
+    justify-content: center;
+    gap:15px;
+    
+}

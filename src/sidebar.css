@@ -1,0 +1,41 @@
+/*.block{
+    background-color: blueviolet;
+    height: 100vh;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding-top: 40px;
+    box-sizing: border-box;
+    
+}*/
+.block {
+    background-color: blueviolet;
+    height: 100vh;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 25px;
+    padding: 40px 15px; /* Added 15px padding on left/right so links don't touch the edges */
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+
+.block p {
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: capitalize; /* Capitalizes the first letter of each word automatically */
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out; /* Makes the hover effect smooth */
+}
+
+/* What happens when you hover over them */
+.block p:hover {
+    background-color: rgba(255, 255, 255, 0.15); /* Sleek semi-transparent overlay */
+    transform: scale(1.03); /* Subtle pop-out animation */
+}
