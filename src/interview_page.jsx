@@ -13,6 +13,9 @@ function Interview() {
     });
     const [feedback, setFeedback] = useState("");
     const [score, setScore] = useState(0);
+    const [questionCount, setquestionCount] = useState(1);
+    const [history, setHistory] = useState([]);
+    const [finalReport, setFinalReport] = useState("");
     useEffect(() => {
         axios.get("http://localhost:3000/users")
             .then((res) => {
@@ -24,6 +27,7 @@ function Interview() {
     }, []);
     async function handleClick() {
         try {
+            setquestionCount(1);
             const value = { job_title: reply.job_title }
             const result = await axios.post("http://localhost:3000/description", value);
             setquestion(result.data.question);
@@ -48,7 +52,31 @@ function Interview() {
                 answer: reply.answer
             };
             const result = await axios.post("http://localhost:3000/evaluate-answer", value);
-            setFeedback(result.data.response);
+            const updatedHistory = [
+                ...history,
+                {
+                    question: question,
+                    answer: reply.answer,
+                    score: result.data.score,
+                    feedback: result.data.feedback
+                }
+            ];
+            setHistory(updatedHistory);
+            setScore(result.data.score);
+            setFeedback(result.data.feedback);
+            if (questionCount < 3) {
+                setquestion(result.data.next_question);
+                setquestionCount(prev => prev + 1);
+            } else {
+                const finalResult = await axios.post("http://localhost:3000/final-report", { history: updatedHistory });
+                console.log(finalResult.data);
+                setFinalReport(finalResult.data.report);
+            }
+            console.log(history);
+            setreply(prev => ({
+                ...prev,
+                answer: ""
+            }));
             console.log(result.data);
         } catch (error) {
             console.log(error);
@@ -68,6 +96,7 @@ function Interview() {
                 ))}
             </select>
             <button type="submit" onClick={handleClick}>start interview</button>
+            <h2>{questionCount}/3</h2>
             <Card variant="outlined">
                 <h3>Question:</h3>
                 <CardContent>{question}</CardContent>
@@ -81,9 +110,14 @@ function Interview() {
                 name="answer"
             ></textarea>
             <button type="submit" onClick={submitAnswer}>Submit answer</button><hr />
+            <h3>Score: {score}/10</h3>
             <Card variant="outlined">
                 <h3>feedback</h3>
                 <CardContent>{feedback}</CardContent>
+            </Card>
+            <Card variant="outlined">
+                <h3>Final Report</h3>
+                <CardContent>{finalReport}</CardContent>
             </Card>
         </div>
     )

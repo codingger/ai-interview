@@ -78,6 +78,15 @@ app.post("/evaluate-answer", async (req, res) => {
 
 })
 
+app.post("/final-report",async(req,res)=>{
+    try {
+        const pythonResponse=await axios.post("http://127.0.0.1:8000/final-report",req.body);
+        res.json(pythonResponse.data);
+    } catch (error) {
+        console.log(error);
+    }
+})
+
 app.post("/jobs", async (req, res) => {
     try {
         const { company_name, job_title, job_description, status, applied_date } = req.body;
