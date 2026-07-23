@@ -7,7 +7,7 @@ function Sidebar(){
             
             <p><Link to="job-application">job applications</Link></p>
             <p><Link to="ai-interview">ai interviewer</Link></p>
-            <p>resume generator</p>
+            
         </div>
     )
 }
